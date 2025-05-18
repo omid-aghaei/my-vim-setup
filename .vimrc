@@ -1,7 +1,7 @@
 " ==================== Vim Configuration ====================
 " Maintainer: Omid Aghaei <info@omidaghaei.ir>
-" Version: 1.0
-" Last Change: 2025-05-17
+" Version: 1.1
+" Last Change: 2025-05-18
 " Repository: https://github.com/omid-aghaei/my-vim-setup
 
 " ================ Core Settings ================
@@ -106,27 +106,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty'
 Plug 'posva/vim-vue'
-Plug 'prisma/vim-prisma'
-Plug 'jparise/vim-graphql'
-Plug 'nginx/nginx'
-
-" Vue with Vetur
-Plug 'posva/vim-vue'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'neoclide/coc-vetur'
 
 " Tools
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'ekalinin/Dockerfile.vim'
-
-" Database
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-ui'
 
 " Theme
 Plug 'tomasiser/vim-code-dark'
@@ -136,7 +122,7 @@ call plug#end()
 " ================ Plugin Configurations ================
 
 " NERDTree
-nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.git$', '\.DS_Store$', 'node_modules']
@@ -156,23 +142,12 @@ let g:gitgutter_sign_added = '▎'
 let g:gitgutter_sign_modified = '▎'
 let g:gitgutter_sign_removed = '▎'
 
-" Prettier
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
-nnoremap <leader>p :Prettier<CR>
-
-" Vetur
-let g:vetur_completion_autoImport = 1
-let g:vetur_validation_template = 1
-let g:vetur_validation_style = 1
-
 " ================ CoC Configuration ================
 let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-json',
   \ 'coc-eslint',
   \ 'coc-prettier',
-  \ 'coc-vetur',
   \ 'coc-pairs',
   \ 'coc-html',
   \ 'coc-css',
@@ -204,6 +179,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Prettier through CoC
+command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
+nnoremap <leader>p :Prettier<CR>
 
 " ================ Language Specific ================
 autocmd FileType javascript,typescript,typescriptreact setlocal shiftwidth=2 softtabstop=2 tabstop=2
